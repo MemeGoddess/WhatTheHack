@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.6</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\$(Version)\Assemblies</OutputPath>
+    <DefineConstants>TRACE;NDEBUG</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>Embedded</DebugType>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\$(Version)\Assemblies</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFRAMEWORK;NET48;</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevTools\DevTools\DevTools.csproj" />
+    <ProjectReference Include="..\Source\WhatTheHack.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DebugPatches\" />
+  </ItemGroup>
+
+</Project>

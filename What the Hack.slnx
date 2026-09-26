@@ -2,5 +2,6 @@
   <Folder Name="/Source/">
     <Project Path="DevTools/DevTools/DevTools.csproj" />
     <Project Path="Source/WhatTheHack.csproj" />
+    <Project Path="WhatTheHack.Tests/WhatTheHack.Tests.csproj" />
   </Folder>
 </Solution>
