@@ -21,7 +21,7 @@ internal class JobGiver_Mechanoid_Rest : ThinkNode_JobGiver
         {
             job = new Job(WTH_DefOf.WTH_Mechanoid_Rest, pawn.CurrentBed());
         }
-        else
+        else if(pawn.Map != null)
         {
             var closestAvailablePlatform = Utilities.GetAvailableMechanoidPlatform(pawn, pawn);
             if (!pawn.Downed && closestAvailablePlatform != null && pawn.CanReserve(closestAvailablePlatform))
