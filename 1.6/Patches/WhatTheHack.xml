@@ -157,16 +157,16 @@
 		</li> 
 	</operations>
 </Operation>
-<Operation Class="PatchOperationSequence">
-	<success>Always</success>
-	<operations>
-		<li Class="PatchOperationAdd">
-			<xpath>Defs/ThingDef/race[fleshType = "Mechanoid" and not(nameGenerator)]</xpath>
+<Operation Class="PatchOperationFindMod">
+	<mods>
+		<li>Biotech</li>
+	</mods>
+	<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef/race[fleshType = "Mechanoid"]</xpath>
 			<value>
-				<nameGenerator>NamerAnimalUtility</nameGenerator>
+				<nameGenerator>NamerAnimalGenericMale</nameGenerator>
 			</value>
-		</li> 
-	</operations>
+	</nomatch>
 </Operation>
 
 <Operation Class="PatchOperationAdd">
