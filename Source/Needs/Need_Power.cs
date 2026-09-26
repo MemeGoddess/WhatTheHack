@@ -23,6 +23,7 @@ public class Need_Power : Need
 
     public float PercentageThreshLowPower => 0.2f; //TODO
 
+    public override bool ShowOnNeedList => !ModsConfig.BiotechActive && pawn.needs.energy != null;
 
     public PowerCategory CurCategory
     {
