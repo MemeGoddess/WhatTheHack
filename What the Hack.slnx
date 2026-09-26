@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Source/">
+    <Project Path="DevTools/DevTools/DevTools.csproj" />
     <Project Path="Source/WhatTheHack.csproj" />
   </Folder>
 </Solution>
