@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>WhatTheHack</AssemblyName>
+    <Version>1.6</Version>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net48</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\$(Version)\Assemblies</OutputPath>
+        <DefineConstants>TRACE;NDEBUG</DefineConstants>
+        <WarningLevel>4</WarningLevel>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>Embedded</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <OutputPath>..\$(Version)\Assemblies</OutputPath>
+        <DefineConstants>TRACE;DEBUG;NETFRAMEWORK;NET48;</DefineConstants>
+    </PropertyGroup>
+  <PropertyGroup />
+ <ItemGroup>
+     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
+    <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime">
+            <Version>2.4.2</Version>
+     </PackageReference>    
+  </ItemGroup>
+  <ItemGroup>
+    <Publicize Include="Assembly-CSharp;UnityEngine.IMGUIModule;UnityEngine.CoreModule" />
+  </ItemGroup>
+</Project>
