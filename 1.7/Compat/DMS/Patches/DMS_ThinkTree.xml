@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+<Operation Class ="PatchOperationAdd">
+	<xpath>Defs/ThinkTreeDef[defName = "DMS_Mechanoid" or defName = "DMS_HumanlikeMech"]/thinkRoot[@Class = "ThinkNode_Priority"]/subNodes</xpath>
+	<order>Prepend</order>
+	<value>
+		<li Class="WhatTheHack.ThinkTree.ThinkNode_ConditionalMechanoidRest">
+			<subNodes>
+				<li Class="WhatTheHack.Jobs.JobGiver_Mechanoid_Rest"/>
+			</subNodes>
+		</li>
+	</value>
+</Operation>
+
+
+<Operation Class="PatchOperationInsert">
+		<xpath>Defs/ThinkTreeDef[defName = "DMS_Mechanoid" or defName = "DMS_HumanlikeMech"]/thinkRoot[@Class = "ThinkNode_Priority"]/subNodes/li[treeDef="LordDuty"]</xpath> <!--Priority is important here, hence the insert after this specific subNode--> 
+		<value>
+			<!-- Make sure mechanoids don't wander about when drafted --> 
+			<li Class="ThinkNode_ConditionalDrafted">
+			  <subNodes>
+				<li Class="ThinkNode_Tagger">
+				  <tagToGive>DraftedOrder</tagToGive>
+				  <subNodes>
+					<li Class="JobGiver_MoveToStandable" />
+					<li Class="JobGiver_Orders" />
+				  </subNodes>
+				</li>
+			  </subNodes>
+			</li>
+			<!-- Work order for mechs with work modules --> 
+			<li Class="WhatTheHack.ThinkTree.ThinkNode_ConditionalMechanoidWork">
+				<subNodes>
+					<li Class="WhatTheHack.Jobs.JobGiver_Work_Mechanoid"/>
+				</subNodes>
+			</li>
+		</value>
+	</Operation>
+
+
+</Patch>

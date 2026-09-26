@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>What the Hack?! (Continued)</name>
+	<author>Zaljerem</author>
+	<supportedVersions>		
+		<li>1.5</li>
+		<li>1.6</li>
+		<li>1.7</li>
+	</supportedVersions>
+<modVersion IgnoreIfNoMatchingField="True">1.2.1</modVersion>
+	<description>
+Original mod by Roolo
+https://steamcommunity.com/sharedfiles/filedetails/?id=1505914869
+Updated with permission
+All the same, if the original author requests it, I will remove this update.
+
+Check out Roolo's game, Cursed Crew! A free demo is available.
+https://store.steampowered.com/app/1839760/Cursed_Crew/
+
+Van's Retexture : What The Hack ?!
+(1.3, but it should still work, ignore the version/missing dependency error)
+https://steamcommunity.com/sharedfiles/filedetails/?id=2841976252
+
+Please note: the packageID has changed to "zal.whatthehack". If any mods requiring What the Hack?!? are updated to 1.5, you will need to change your dependency. Thank you for your understanding.
+
+--
+
+I'm very pleased to present this continued version of a classic mod. Thank you to Roolo for permission, thank you to KymasTuran for your testing, and thank you to everyone who has requested this one.
+
+--
+
+Original mod notes (1.4):
+
+What better way is there to take revenge on mechanoids than to hack them, and use them as your own combat slaves? With What the Hack!? you can raise your own squad of blood machines. This is not all: You can also apply various upgrades to mechanoids like a turret module for mounting turrets on them, a belt module for equipping belts like shield belts, and various other modules. Moreover you can use your hacked mechanoids as pack-mules during world travel, raid factions with them, you can control them directly with a controller belt, or implant an AI persona core in them for indefinite control. Beware though, hacking has its dangers, and other technologically advanced factions also know how to hack, so expect hacked mechanoids in enemy raids. 
+
+*Features*
+- Adds the possibility to hack downed mechanoids with the mechanoid hacking facility.
+- Mechanoids can be downed again. Only downed mechs can be hacked.
+- Adds a "hacking" work type, which levels with both the crafting skill and the intellectual skill of colonists.
+- A lot of end game content involving an advanced Rogue AI which you can help to develop a consciousness and which can learn abilities like temporarily hacking mechs, controlling your turrets, controlling your mechanoids and more. Don't get it mad though, as it'll use its abilities against you.
+- Hacked mechs cannot use their internal reactor as that would draw attention from the mechanoid hive, so they rely on their internal backup batteries which need charging.
+- Hacked mechs need regular maintenance which is performed automatically by your hackers. If it's completely neglected, hacks can stop working...
+- Mechanoid platforms are added, which repair and recharge mechanoids on them.
+- Various upgrades can be performed. Look at the image below for an overview.
+- Repair, maintenance, and hacks and upgrades require "mechanoid parts", which can be obtained by disassembling mechanoids.
+- World travel is possible with mechanoids. To support this, a portable charging platform is added.
+- Enemy factions can also use (occasionally upgraded) mechanoids during raids. What factions can use mechanoids can be configured in the mod options.
+
+Many more things, just install the mod and you'll see!
+
+One of the most notable upgrades is definitely the turret module, which allows you to mount turrets and mortars on your mechs, including ones added by other mods.
+
+*How to hack mechanoids*
+1. Research basic hacking.
+2. Build a hacking table and one mechanoid platform for each mechanoid.
+3. Gather mechanoid parts by destroying and disassembling mechanoids. Bigger mechanoids give more parts.
+4. Go to the health tab of a downed mechanoid, click Modifications-> Add bill -> Hack mechanoid targeting device.
+5. The mechanoid will be hauled automatically to the hacking table, and any pawns with a minimum crafting and intellectual of 5 assigned to hacking, will start a modification job, given there are at least 10 mechanoid parts in store.
+
+*Languages*
+- English
+- Japanese (by Proxyer)
+- Korean (by yangbum7)
+- Simplified Chinese (by Lingluo)
+- Traditional Chinese (by Biscuit)
+- German (by RoffeIchen)
+- Polish (by Gt.zgame.pl)
+- Spanish (by Caferino)
+
+*Dependencies*
+This mod depends on Hugslib. Load order should be: Hugslib -> What the Hack!?.
+
+*Credits*
+- Roolo - author
+- Madman666: For drawing al lot of sprites and being a great support!
+- Mlie: For the 1.4 update!
+- Ogliss: For helping with the 1.3 update.
+- malistaticy: For drawing the sprites for the mechanoid hacking facility and the mechanoid workshop.
+- Noirfry: Helping out with the 1.2 update, and solving some issues.
+- Cenbes: For testing, re-organising the research tab, and being Cenbes :).
+- rawrfisher: For extensive playtesting and bug reporting.
+- Orion: For creating and giving me permission to use the advanced mechanoid chip sprite, which was part of the amazing More Mechanoids, but is no longer used in that mod.
+- Pardeike a.k.a. Brrainz: For creating Harmony on which this mod relies so much.
+- UnlimitedHugs: For creating Hugslib, and saving me a lot of time.
+- The translators for doing a great job.
+	</description>	
+	<modDependenciesByVersion>
+		<v1.5>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+            <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>UnlimitedHugs.HugsLib</packageId>
+			<displayName>HugsLib</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/818773962</steamWorkshopUrl>
+			<downloadUrl>https://github.com/UnlimitedHugs/RimworldHugsLib/releases/latest</downloadUrl>
+		</li>
+		</v1.5>
+			<v1.6>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+            <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>		
+		</v1.6>
+	</modDependenciesByVersion>
+    <loadAfter>
+		<li>brrainz.harmony</li>
+		<li>UnlimitedHugs.HugsLib</li>
+		<li>Aoba.DeadManSwitch.Core</li>
+    </loadAfter>
+	<packageId>zal.whatthehack</packageId>
+</ModMetaData>

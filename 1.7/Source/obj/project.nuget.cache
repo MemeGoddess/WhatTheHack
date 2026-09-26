@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Yf1KnCl4Euw=",
+  "success": true,
+  "projectFilePath": "/home/lana/RimWorldDev/Repos/What the Hack/1.7/Source/WhatTheHack.csproj",
+  "expectedPackageFiles": [
+    "/home/lana/.nuget/packages/krafs.publicizer/2.3.0/krafs.publicizer.2.3.0.nupkg.sha512",
+    "/home/lana/.nuget/packages/lib.harmony/2.4.2/lib.harmony.2.4.2.nupkg.sha512"
+  ],
+  "logs": []
+}
