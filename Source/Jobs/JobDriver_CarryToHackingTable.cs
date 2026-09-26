@@ -33,7 +33,6 @@ namespace WhatTheHack.Jobs
 
             // --- Step 2: Pick up the mech ---
             var carryMech = Toils_Haul.StartCarryThing(TargetIndex.A);
-            carryMech.initAction = () => job.count = 1; // Ensure count is valid
             yield return carryMech;
 
             // --- Step 3: Go to table cell ---
