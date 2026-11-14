@@ -20,39 +20,7 @@ public class Recipe_HackMechanoid : Recipe_Hacking
     }
 
     protected override void PostSuccessfulApply(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients,
-        Bill bill)
-    {
-        pawn.health.AddHediff(WTH_DefOf.WTH_BackupBattery, pawn.TryGetReactor());
-        pawn.SetFaction(Faction.OfPlayer);
-        if (pawn.relations == null)
-        {
-            pawn.relations = new Pawn_RelationsTracker(pawn);
-        }
-
-        if (pawn.story == null)
-        {
-            pawn.story = new Pawn_StoryTracker(pawn);
-        }
-
-        if (pawn.ownership == null)
-        {
-            pawn.ownership = new Pawn_Ownership(pawn);
-        }
-
-        var pawnData = Base.Instance.GetExtendedDataStorage().GetExtendedDataFor(pawn);
-
-        Utilities.InitWorkTypesAndSkills(pawn, pawnData);
-
-        pawn.Name = PawnBioAndNameGenerator.GeneratePawnName(pawn);
-        Find.LetterStack.ReceiveLetter("WTH_Letter_Success_Label".Translate(),
-            "WTH_Letter_Success_Label_Description".Translate(billDoer.Name.ToStringShort, pawn.Name),
-            LetterDefOf.PositiveEvent, pawn);
-        billDoer.jobs.jobQueue.EnqueueFirst(new Job(WTH_DefOf.WTH_ClearHackingTable, pawn, pawn.CurrentBed())
-            { count = 1 });
-        LessonAutoActivator.TeachOpportunity(WTH_DefOf.WTH_Power, OpportunityType.Important);
-        LessonAutoActivator.TeachOpportunity(WTH_DefOf.WTH_Maintenance, OpportunityType.Important);
-        LessonAutoActivator.TeachOpportunity(WTH_DefOf.WTH_Concept_MechanoidParts, OpportunityType.Important);
-    }
+        Bill bill) => WhatTheHackUtility.ApplyHack(pawn, billDoer);
 
 
     protected override void HackingFailEvent(Pawn hacker, Pawn hackee, BodyPartRecord part, Random r)

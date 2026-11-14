@@ -33,7 +33,7 @@ internal class JobGiver_Mechanoid_Ability : ThinkNode_JobGiver
             pawn.health.summaryHealth.SummaryHealthPercent < 0.8f &&
             !pawn.health.hediffSet.HasHediff(WTH_DefOf.WTH_Repairing) &&
             pawn.TryGetComp<CompRefuelable>() is { } comp &&
-            pawn.needs.TryGetNeed<Need_Power>() is { } powerNeed &&
+            pawn.needs.energy is { } powerNeed &&
             comp.Fuel >= fuelConsumption &&
             powerNeed.CurLevel >= powerDrain
            )
@@ -51,7 +51,7 @@ internal class JobGiver_Mechanoid_Ability : ThinkNode_JobGiver
 
         if (targetFound == null || targetFound.Position.DistanceToSquared(pawn.Position) >= 25 * 25 ||
             pawn.health.hediffSet.HasHediff(WTH_DefOf.WTH_Overdrive) ||
-            pawn.needs.TryGetNeed<Need_Power>() is not { } need)
+            pawn.needs.energy is not { } need)
         {
             return null;
         }

@@ -7,6 +7,7 @@ using Verse.AI;
 using Verse.AI.Group;
 using WhatTheHack.Buildings;
 using WhatTheHack.Needs;
+using WhatTheHack.Storage;
 
 namespace WhatTheHack;
 
@@ -232,10 +233,12 @@ public static class Extensions
 
     public static bool ShouldRecharge(this Pawn pawn)
     {
-        return pawn.needs.TryGetNeed(WTH_DefOf.WTH_Mechanoid_Power) is Need_Power
-        {
-            CurCategory: >= PowerCategory.LowPower, shouldAutoRecharge: true
-        };
+        // Is basically just a copy of JobGiver_GetEnergy at this point
+        var energy = pawn.needs.energy;
+        if (energy == null)
+            return false;
+        
+        return (energy.CurLevelPercentage + 0.1f) * 100 < JobGiver_GetEnergy.GetMinAutorechargeThreshold(pawn);
     }
 
     public static bool ShouldBeMaintained(this Pawn pawn)
@@ -253,15 +256,11 @@ public static class Extensions
     {
         var store = Base.Instance.GetExtendedDataStorage();
         if (store == null)
-        {
             return false;
-        }
 
-        var powerNeed = pawn.needs.TryGetNeed<Need_Power>();
         if (pawn.Downed ||
             pawn.ShouldRecharge() ||
             pawn.ShouldBeMaintained() ||
-            pawn.OnBaseMechanoidPlatform() && powerNeed.CurLevelPercentage <= powerNeed.canStartWorkThreshold ||
             pawn.OnHackingTable())
         {
             return false;
@@ -276,4 +275,7 @@ public static class Extensions
     {
         return caravan.AllThings.Any(thing => thing.def == ThingDefOf.Chemfuel && thing.stackCount > 0);
     }
+
+    public static ExtendedPawnData GetExtendedData(this Pawn pawn) =>
+        Base.Instance.GetExtendedDataStorage().GetExtendedDataFor(pawn);
 }

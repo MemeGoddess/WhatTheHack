@@ -31,8 +31,9 @@ namespace WhatTheHack.Harmony
             }
 
             // Check mechanoid platforms
-            var platform = things.OfType<Building_BaseMechanoidPlatform>()
-                .FirstOrDefault(pl => p.Position == pl.GetSleepingSlotPos(Building_BaseMechanoidPlatform.SLOTINDEX));
+            var platform = things
+                .OfType<Building_BaseMechanoidPlatform>()
+                .FirstOrDefault();
             if (platform != null)
             {
                 __result = platform;

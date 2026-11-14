@@ -17,7 +17,7 @@ internal class JobGiver_Mechanoid_Rest : ThinkNode_JobGiver
             pawnData.isActive = false;
         }
 
-        if (pawn.OnBaseMechanoidPlatform() || pawn.OnHackingTable())
+        if (pawn.OnHackingTable())
         {
             job = new Job(WTH_DefOf.WTH_Mechanoid_Rest, pawn.CurrentBed());
         }

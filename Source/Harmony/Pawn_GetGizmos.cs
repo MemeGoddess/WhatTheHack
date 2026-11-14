@@ -94,7 +94,6 @@ public class Pawn_GetGizmos
     private static void AddHackedPawnGizmos(Pawn __instance, ref List<Gizmo> gizmoList, ExtendedDataStorage store)
     {
         var pawnData = store.GetExtendedDataFor(__instance);
-        var powerNeed = __instance.needs.TryGetNeed<Need_Power>();
         var maintenanceNeed = __instance.needs.TryGetNeed<Need_Maintenance>();
         var hediffSet = __instance.health.hediffSet;
 
@@ -103,10 +102,11 @@ public class Pawn_GetGizmos
         bool hasOverdrive = hediffSet.HasHediff(WTH_DefOf.WTH_Overdrive) || hediffSet.HasHediff(WTH_DefOf.WTH_Overdrive_GoneTooFar);
         bool hasBeltModule = hediffSet.HasHediff(WTH_DefOf.WTH_BeltModule);
         bool hasSelfDestruct = hediffSet.HasHediff(WTH_DefOf.WTH_SelfDestruct);
+        var backupBattery = hediffSet.GetFirstHediff<BackupBattery>();
 
         gizmoList.Add(CreateGizmo_SearchAndDestroy(__instance, pawnData));
 
-        if (powerNeed != null) gizmoList.Add(CreateGizmo_AutoRecharge(powerNeed));
+        if (backupBattery != null) gizmoList.Add(CreateGizmo_AutoRecharge(backupBattery));
 
         if (!__instance.IsColonistPlayerControlled && __instance.apparel != null)
         {
@@ -117,7 +117,7 @@ public class Pawn_GetGizmos
         if (__instance.workSettings != null)
         {
             gizmoList.Add(CreateGizmo_Work(__instance, pawnData));
-            if (powerNeed != null) gizmoList.Add(CreateGizmo_WorkThreshold(powerNeed));
+            if (backupBattery != null) gizmoList.Add(CreateGizmo_WorkThreshold(backupBattery));
         }
 
         if (maintenanceNeed != null) gizmoList.Add(CreateGizmo_MaintenanceThreshold(maintenanceNeed));
@@ -148,10 +148,10 @@ public class Pawn_GetGizmos
             }
         };
 
-    private static Gizmo CreateGizmo_WorkThreshold(Need_Power powerNeed) =>
+    private static Gizmo CreateGizmo_WorkThreshold(BackupBattery backupBattery) =>
         new Command_SetWorkThreshold
         {
-            powerNeed = powerNeed,
+            battery = backupBattery,
             defaultLabel = "WTH_Gizmo_WorkThreshold_Label".Translate(),
             defaultDesc = "WTH_Gizmo_WorkThreshold_Description".Translate(),
             icon = TexMechanoidWorkThreshold
@@ -166,7 +166,7 @@ public class Pawn_GetGizmos
             icon = TexRepair
         };
 
-    private static Gizmo CreateGizmo_SearchAndDestroy(Pawn __instance, ExtendedPawnData pawnData)
+    internal static Gizmo CreateGizmo_SearchAndDestroy(Pawn __instance, ExtendedPawnData pawnData)
     {
         var disabledReason = "";
         bool disabled = false;
@@ -219,7 +219,7 @@ public class Pawn_GetGizmos
         };
     }
 
-    private static Gizmo CreateGizmo_AutoRecharge(Need_Power powerNeed) =>
+    private static Gizmo CreateGizmo_AutoRecharge(BackupBattery powerNeed) =>
         new Command_Toggle
         {
             defaultLabel = "WTH_Gizmo_AutoRecharge_Label".Translate(),
@@ -232,15 +232,17 @@ public class Pawn_GetGizmos
     private static Gizmo CreateGizmo_SelfRepair(Pawn __instance)
     {
         var compRefuelable = __instance.GetComp<CompRefuelable>();
-        var powerNeed = __instance.needs.TryGetNeed<Need_Power>();
         var jobDef = WTH_DefOf.WTH_Ability_Repair;
         var modExt = jobDef.GetModExtension<DefModExtension_Ability>();
+        var hediffSet = __instance.health.hediffSet;
+        var powerNeed = __instance.needs.energy;
 
-        bool alreadyRepairing = __instance.health.hediffSet.HasHediff(WTH_DefOf.WTH_Repairing);
+
+        bool alreadyRepairing = hediffSet.HasHediff(WTH_DefOf.WTH_Repairing);
         bool needsMorePower = powerNeed.CurLevel < modExt.powerDrain;
         bool needsMoreFuel = compRefuelable.Fuel < modExt.fuelDrain;
         bool notActivated = !__instance.IsActivated();
-        bool noDamage = !__instance.health.hediffSet.HasNaturallyHealingInjury();
+        bool noDamage = !hediffSet.HasNaturallyHealingInjury();
 
         bool disabled = alreadyRepairing || needsMorePower || needsMoreFuel || notActivated || noDamage;
 
@@ -269,7 +271,7 @@ public class Pawn_GetGizmos
     private static Gizmo CreateGizmo_Repair(Pawn __instance)
     {
         var compRefuelable = __instance.GetComp<CompRefuelable>();
-        var powerNeed = __instance.needs.TryGetNeed<Need_Power>();
+        var powerNeed = __instance.needs.energy;
         var jobDef = WTH_DefOf.WTH_Ability_Repair;
         var modExt = jobDef.GetModExtension<DefModExtension_Ability>();
 
@@ -304,7 +306,7 @@ public class Pawn_GetGizmos
 
     private static Gizmo CreateGizmo_Overdrive(Pawn __instance)
     {
-        var powerNeed = __instance.needs.TryGetNeed<Need_Power>();
+        var powerNeed = __instance.needs.energy;
         var jobDef = WTH_DefOf.WTH_Ability_Overdrive;
         var modExt = jobDef.GetModExtension<DefModExtension_Ability>();
 
@@ -353,7 +355,7 @@ public class Pawn_GetGizmos
 
     private static Gizmo CreateGizmo_SelfDestruct(Pawn pawn)
     {
-        var powerNeed = pawn.needs.TryGetNeed<Need_Power>();
+        var powerNeed = pawn.needs.energy;
         var jobDef = WTH_DefOf.WTH_Ability_SelfDestruct;
         var modExt = jobDef.GetModExtension<DefModExtension_Ability>();
 

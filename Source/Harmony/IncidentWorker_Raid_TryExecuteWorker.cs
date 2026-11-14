@@ -28,26 +28,18 @@ public static class IncidentWorker_Raid_TryExecuteWorker
     {
         __state = new List<Pawn>();
         if (pawns.Count == 0)
-        {
             return;
-        }
 
         if (parms.faction == Faction.OfMechanoids)
-        {
             return;
-        }
 
-        Storyteller storyteller = Find.Storyteller;
+        var storyteller = Find.Storyteller;
         if (storyteller.def.defName == "VSE_WinstonWave")
-        {
             return;
-        }        
 
         var rand = new Random(DateTime.Now.Millisecond);
         if (rand.Next(0, 100) > WhatTheHackMod.Settings.hackedMechChance)
-        {
             return;
-        }
 
         var minHackedMechPoints = Math.Min(WhatTheHackMod.Settings.minHackedMechPoints, WhatTheHackMod.Settings.maxHackedMechPoints);
         var maxMechPoints =
@@ -86,22 +78,17 @@ public static class IncidentWorker_Raid_TryExecuteWorker
 
         foreach (var mechanoid in __state)
         {
-            mechanoid.health.AddHediff(WTH_DefOf.WTH_TargetingHacked);
             mechanoid.health.AddHediff(WTH_DefOf.WTH_BackupBattery);
 
-            var powerNeed = (Need_Power)mechanoid.needs.TryGetNeed(WTH_DefOf.WTH_Mechanoid_Power);
-            powerNeed.CurLevel = powerNeed.MaxLevel;
+            var powerNeed = mechanoid.needs.TryGetNeed<Need_MechEnergy>();
+            powerNeed?.CurLevel = powerNeed.MaxLevel;
             if (ModsConfig.BiotechActive && mechanoid.needs.energy != null)
             {
                 mechanoid.needs.energy.curLevelInt = mechanoid.needs.energy.MaxLevel;
             }
 
-            pawns.Add(mechanoid);
             AddModules(mechanoid);
-            if (mechanoid.equipment == null)
-            {
-                mechanoid.equipment = new Pawn_EquipmentTracker(mechanoid);
-            }
+            mechanoid.equipment ??= new Pawn_EquipmentTracker(mechanoid);
         }
     }
 

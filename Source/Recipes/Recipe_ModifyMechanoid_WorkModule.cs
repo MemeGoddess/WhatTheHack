@@ -68,6 +68,9 @@ namespace WhatTheHack.Recipes
 
                     if (!pawn.workSettings.WorkIsActive(workType))
                         pawn.workSettings.SetPriority(workType, 3);
+                    
+                    if(workType != WorkTypeDefOf.Hunting)
+                        pawnData.canWorkNow = true;
                 }
 
                 if (modExt.skillLevel > 0 && pawn.skills != null)

@@ -44,6 +44,21 @@ public class WTH_DefOf
     public static RecipeDef WTH_InduceEmergencySignal;
     public static RecipeDef WTH_ShutDownMechanoid;
     public static RecipeDef WTH_Craft_VanometricModule;
+    
+    //Surgery
+    public static RecipeDef WTH_InstallOverdriveModule;
+    public static RecipeDef WTH_InstallSpeedModule;
+    public static RecipeDef WTH_InstallCargoModule;
+    public static RecipeDef WTH_InstallOpticSensorModule;
+    public static RecipeDef WTH_InstallArmorModule;
+    public static RecipeDef WTH_InstallGrowingModule;
+    public static RecipeDef WTH_InstallFirefightingModule;
+    public static RecipeDef WTH_InstallCleaningModule;
+    public static RecipeDef WTH_InstallHaulingModule;
+    public static RecipeDef WTH_InstallRepairModule;
+    public static RecipeDef WTH_InstallTurretModule;
+    public static RecipeDef WTH_InstallBatteryExpansionModule;
+    public static RecipeDef WTH_InstallVanometricModule;
 
     public static DutyDef WTH_SearchAndDestroy;
     public static DutyDef WTH_ControlMechanoidDuty;
@@ -63,7 +78,6 @@ public class WTH_DefOf
     public static JobDef WTH_PerformMaintenance;
     public static JobDef WTH_HackRogueAI;
 
-    public static NeedDef WTH_Mechanoid_Power;
     public static NeedDef WTH_Mechanoid_Maintenance;
 
     public static ThingDef WTH_TableMechanoidWorkshop;
@@ -81,6 +95,7 @@ public class WTH_DefOf
     public static ThingDef WTH_RogueAI;
     public static ThingDef WTH_ExtractedBrainData;
     public static ThingDef VanometricPowerCell;
+    public static ThingDef WTH_HaulingModule;
 
 
     public static StatDef WTH_HackingSuccessChance;

@@ -252,6 +252,19 @@ internal static class Utilities
 
         pawnData.workTypes.Add(huntingWorkType);
         pawn.workSettings.SetPriority(huntingWorkType, 3);
+        
+        if (pawn.RaceProps.mechEnabledWorkTypes != null)
+        {
+            foreach (var workType in pawn.RaceProps.mechEnabledWorkTypes)
+            {
+                if (!pawnData.workTypes.Contains(workType))
+                {
+                    pawnData.workTypes.Add(workType);
+                }
+
+                pawn.workSettings.SetPriority(workType, 3);
+            }
+        }
     }
 
     public static void CalcDaysOfFuel(int numMechanoids, float fuelAmount, ref float fuelConsumption, int numPlatforms,
@@ -294,7 +307,6 @@ internal static class Utilities
 
         return pawn.skills != null;
     }
-
 
     private static bool StatAllowed(StatDef stat)
     {

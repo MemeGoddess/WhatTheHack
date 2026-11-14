@@ -36,7 +36,6 @@ namespace WhatTheHack.Jobs
                 initAction = () =>
                 {
                     Takee.jobs?.EndCurrentJob(JobCondition.InterruptForced);
-                    Takee.health?.surgeryBills?.Clear();
                     HackingTable.TryRemovePawnForModification(Takee);
                 },
                 defaultCompleteMode = ToilCompleteMode.Instant

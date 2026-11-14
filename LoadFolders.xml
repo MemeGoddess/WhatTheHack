@@ -7,11 +7,15 @@
  <v1.6>
     <li></li>
     <li>1.6</li>
-	 <li IfModActive="Aoba.DeadManSwitch.Core">1.6/Compat/DMS</li>
+	<li IfModActive="Aoba.DeadManSwitch.Core">1.6/Compat/DMS</li>
+    <li IfModNotActive="ludeon.rimworld.biotech">1.6/Compat/NoBiotech</li>
+    <li IfModActive="ludeon.rimworld.biotech">1.6/Compat/Biotech</li>
   </v1.6>
   <v1.7>
-    <li></li>
-    <li>1.7</li>
-	 <li IfModActive="Aoba.DeadManSwitch.Core">1.7/Compat/DMS</li>
+      <li></li>
+      <li>1.7</li>
+      <li IfModActive="Aoba.DeadManSwitch.Core">1.7/Compat/DMS</li>
+      <li IfModNotActive="ludeon.rimworld.biotech">1.7/Compat/NoBiotech</li>
+      <li IfModActive="ludeon.rimworld.biotech">1.7/Compat/Biotech</li>
   </v1.7>
 </loadFolders>

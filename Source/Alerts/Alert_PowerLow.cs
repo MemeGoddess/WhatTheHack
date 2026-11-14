@@ -5,6 +5,7 @@ using RimWorld;
 using Verse;
 using WhatTheHack.Buildings;
 using WhatTheHack.Needs;
+using WhatTheHack.Storage;
 
 namespace WhatTheHack.Alerts;
 
@@ -16,14 +17,31 @@ internal class Alert_PowerLow : Alert
         defaultPriority = AlertPriority.High;
     }
 
-    private IEnumerable<Pawn> LowPowerPawns =>
-        from p in PawnsFinder.AllMaps_Spawned
-        where p.needs.TryGetNeed(WTH_DefOf.WTH_Mechanoid_Power) != null
-              && p.Faction == Faction.OfPlayer
-              && ((Need_Power)p.needs.TryGetNeed(WTH_DefOf.WTH_Mechanoid_Power)).CurCategory >=
-              PowerCategory.VeryLowPower
-              && p.CurrentBed() is not Building_BaseMechanoidPlatform
-        select p;
+    private IEnumerable<Pawn> LowPowerPawns
+    {
+        get
+        {
+            foreach (var p in PawnsFinder.AllMaps_Spawned)
+            {
+                if(p.needs.energy == null)
+                    continue;
+                
+                if(p.needs.energy.CurLevel > 0.1f)
+                    continue;
+                
+                if(p.Faction != Faction.OfPlayer)
+                    continue;
+                
+                if(p.CurrentBed() is Building_BaseMechanoidPlatform)
+                    continue;
+
+                if(!p.health.hediffSet.HasHediff<BackupBattery>())
+                    continue;
+                
+                yield return p;
+            }
+        }
+    }
 
     public override TaggedString GetExplanation()
     {

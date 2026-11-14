@@ -51,6 +51,7 @@ public class GenStep_HiveTemple : GenStep
 
     private CellRect getRect(CellRect centralPoint, Map map)
     {
+        possibleRects.Clear();
         possibleRects.Add(new CellRect(centralPoint.minX - 1 - size, centralPoint.CenterCell.z - 8, size, size));
         possibleRects.Add(new CellRect(centralPoint.maxX + 1, centralPoint.CenterCell.z - 8, size, size));
         possibleRects.Add(new CellRect(centralPoint.CenterCell.x - 8, centralPoint.minZ - 1 - size, size, size));

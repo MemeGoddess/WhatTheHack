@@ -50,6 +50,7 @@ internal static class Caravan_TickInterval
 
     private static void MaintainMechsIfNeeded(Caravan caravan, List<Thing> allParts, List<Pawn> allHackedMechs)
     {
+        // Review: only the first stack is counted, and parts are consumed even when the roll fails.
         var partItem = allParts.First();
         var allPawnsCapableOfMaintenance = caravan.AllThings.Where(t => t is Pawn { Dead: false, Downed: false })
             .Cast<Pawn>().ToList();
@@ -115,10 +116,8 @@ internal static class Caravan_TickInterval
 
         foreach (var pawn in allHackedMechs)
         {
-            if (pawn.needs.TryGetNeed<Need_Power>() is not { OutOfPower: false })
-            {
+            if (pawn.needs.energy is not { IsSelfShutdown: false })
                 continue;
-            }
 
             if (pawn.health != null && pawn.health.hediffSet.HasHediff(WTH_DefOf.WTH_RepairArm))
             {
@@ -130,9 +129,7 @@ internal static class Caravan_TickInterval
             if (pawn.health == null || !pawn.health.hediffSet.HasHediff(WTH_DefOf.WTH_RepairModule) ||
                 !pawn.health.hediffSet.HasNaturallyHealingInjury() ||
                 pawn.health.hediffSet.HasHediff(WTH_DefOf.WTH_Repairing))
-            {
                 continue;
-            }
 
             pawn.health.AddHediff(WTH_DefOf.WTH_Repairing);
             partItem.SplitOff(5);
@@ -173,6 +170,7 @@ internal static class Caravan_TickInterval
                 continue;
             }
 
+            // Review: this amount is applied to every fuel stack, multiplying interval consumption.
             var fuelConsumedThisInterval = Math.Min(numMechanoids, numPlatforms);
             thing.SplitOff(fuelConsumedThisInterval).Destroy();
             if (thing.stackCount == 0)

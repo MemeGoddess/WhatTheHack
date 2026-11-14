@@ -179,13 +179,7 @@ public class Building_RogueAI : Building
             textTimeout--;
         }
 
-        foreach (var turret in controlledTurrets)
-        {
-            if (turret.DestroyedOrNull())
-            {
-                CancelControlTurret(turret);
-            }
-        }
+        controlledTurrets.RemoveAll(turret => turret.DestroyedOrNull());
 
         var store = Base.Instance.GetExtendedDataStorage();
         if (store == null)
@@ -208,11 +202,9 @@ public class Building_RogueAI : Building
 
     private void TalkGibberish()
     {
-        if (!IsConscious)
-        {
+        if (!IsConscious || !Map.mapPawns.FreeColonists.Any())
             return;
-        }
-
+        
         var randomColonistName = Map.mapPawns.FreeColonists.RandomElement().Name.ToStringShort;
         string signalFromEarth =
             ("WTH_RogueAI_SignalFromEarth_" + Rand.RangeInclusive(0, NUMTEXTSSIGNALFROMEARTH - 1)).Translate();
@@ -398,7 +390,8 @@ public class Building_RogueAI : Building
 
     private void TickActionQueue()
     {
-        foreach (var actionItem in queuedActions)
+        // Review: queued actions can append to or clear this list during enumeration.
+        foreach (var actionItem in queuedActions.ToList())
         {
             actionItem.Tick();
         }

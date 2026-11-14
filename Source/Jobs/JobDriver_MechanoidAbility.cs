@@ -51,7 +51,7 @@ public class JobDriver_MechanoidAbility : JobDriver
             refuelableComp.ConsumeFuel(modExt.fuelDrain);
         }
 
-        if (modExt.powerDrain > 0 && pawn.needs.TryGetNeed<Need_Power>() is { } powerNeed)
+        if (modExt.powerDrain > 0 && pawn.needs.energy is { } powerNeed)
         {
             powerNeed.CurLevel -= modExt.powerDrain;
 

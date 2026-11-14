@@ -44,6 +44,7 @@ public class ExtendedDataStorage : WorldComponent
             ref _idWorkingListMap, ref _mapDataWorkingList);
         Scribe_Values.Look(ref lastEmergencySignalTick, "lastEmergencySignalTick");
         Scribe_Values.Look(ref lastEmergencySignalDelay, "lastEmergencySignalDelay");
+        // Review: this currently scribes the delay field again; cooldown state is not saved/restored correctly.
         Scribe_Values.Look(ref lastEmergencySignalDelay, "lastEmergencySignalCooldown");
     }
 

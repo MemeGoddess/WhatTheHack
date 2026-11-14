@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <NeedDef>
+        <defName>WTH_MechEnergy</defName>
+        <onlyIfCausedByHediff>true</onlyIfCausedByHediff>
+        <needClass>Need_MechEnergy</needClass>
+        <label>power</label>
+        <description>When a mechanoid is hacked, its internal reactor is shut down to avoid detection by the mechanoid hive. As a result, hacked mechanoids depend on their internal backup battery, which can be recharged on mechanoid platforms</description>
+        <listPriority>10000</listPriority>
+        <freezeWhileSleeping>true</freezeWhileSleeping>
+        <showForCaravanMembers>true</showForCaravanMembers>
+        <major>true</major>
+    </NeedDef>
+    <HediffDef>
+        <defName>WTH_BackupBattery</defName>
+        <hediffClass>WhatTheHack.Storage.BackupBattery</hediffClass>
+        <label>running on backup battery</label>
+        <description>running on backup battery</description>
+        <defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+        <chemicalNeed>WTH_MechEnergy</chemicalNeed>
+        <isBad>false</isBad>
+    </HediffDef>
+</Defs>

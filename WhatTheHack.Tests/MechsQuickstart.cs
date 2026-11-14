@@ -11,14 +11,16 @@ using WhatTheHack.Harmony;
 
 namespace WhatTheHack.Tests;
 
+// TODO Looks like mech charging doesn't show green arrow when on platform
+// TODO They don't get off the platform to haul
 [Quickstart("WTHMechs")]
 public class MechsQuickstart
 {
-    private ScopedMethodHook _hook;
-    [OneTimeSetUp]
-    public void OneTimeSetup() =>
-        _hook = new ScopedMethodHook(AccessTools.Method(typeof(Pawn_HealthTracker_HealthTick), "Postfix"), 
-            transpiler: new HarmonyMethod(AccessTools.Method(GetType(), nameof(PatchHealRate))));
+    // private ScopedMethodHook _hook;
+    // [OneTimeSetUp]
+    // public void OneTimeSetup() =>
+    //     _hook = new ScopedMethodHook(AccessTools.Method(typeof(Pawn_HealthTracker_HealthTick), "Postfix"), 
+    //         transpiler: new HarmonyMethod(AccessTools.Method(GetType(), nameof(PatchHealRate))));
 
     private List<Thing> _cleanup = new();
     private List<Pawn> mechs = new(); 
@@ -26,6 +28,7 @@ public class MechsQuickstart
     [SetUp]
     public IEnumerator Setup()
     {
+        Tweaker.SuperFast = true;
         var builder = PawnKindDefOf
             .Mech_Pikeman
             .AsBuilder()
@@ -34,35 +37,50 @@ public class MechsQuickstart
             .WithModifer(pawn => HealthUtility.DamageUntilDowned(pawn));
 
         mechs.AddRange(builder.SpawnMany(5));
+        
+        // Fuck you >:(
+        mechs.Where(x => !x.Downed).ToList().ForEach(x => x.Destroy());
 
         var map = Find.CurrentMap;  
         var workshopCenter = map.Center +  new IntVec3(0, 0, 10);
         
         var table = (Building_HackingTable)GenSpawn.Spawn(WTH_DefOf.WTH_HackingTable, workshopCenter, map);
         table.SetFaction(Faction.OfPlayer);
-        
-        var powerCell = GenSpawn.Spawn(WTH_DefOf.VanometricPowerCell, workshopCenter + new IntVec3(0, 0, 2), map);
-        powerCell.SetFaction(Faction.OfPlayer);
-        
-        var platform = (Building_MechanoidPlatform)GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidPlatform, workshopCenter + new IntVec3(-4, 0, 0), map);
-        var platformComp = platform.TryGetComp<CompRefuelable>();
-        platformComp.Refuel(platformComp.Props.fuelCapacity);
-        platform.SetFaction(Faction.OfPlayer);
+
+        for (var i = 1; i < 10; i++)
+        {
+            {
+                var platform = (Building_MechanoidPlatform)GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidPlatform,
+                    workshopCenter - new IntVec3(1 + 3 * i, 0, 0), map);
+                var platformComp = platform.TryGetComp<CompRefuelable>();
+                platformComp.Refuel(platformComp.Props.fuelCapacity);
+                platform.SetFaction(Faction.OfPlayer);
+                platform.powerComp.PowerOn = true;
+                _cleanup.Add(platform);
+            }
+            {
+                var platform = (Building_MechanoidPlatform)GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidPlatform, workshopCenter - new IntVec3(1 + 3 * i, 0, 4), map);
+                var platformComp = platform.TryGetComp<CompRefuelable>();
+                platformComp.Refuel(platformComp.Props.fuelCapacity);
+                platform.SetFaction(Faction.OfPlayer);
+                platform.powerComp.PowerOn = true;
+                _cleanup.Add(platform);
+            }
+        }
         
         table.powerComp.PowerOn = true;
-        platform.powerComp.PowerOn = true;
         
         var parts = GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidParts, workshopCenter + new IntVec3(0, 0, -3), map);
         parts.stackCount = parts.def.stackLimit;
 
         worker = TestPawns.Worker
             .WithGear(ThingDefOf.MealSurvivalPack)
-            .WithWorkMaxed(WorkTypeDefOf.Doctor, WorkTypeDefOf.Crafting, WorkTypeDefOf.Smithing)
+            .WithWorkMaxed(WorkTypeDefOf.Doctor, WorkTypeDefOf.Crafting, WorkTypeDefOf.Smithing, WTH_DefOf.WTH_Hack)
             .Spawn();
         Find.ResearchManager.DebugSetAllProjectsFinished();
         Find.EntityCodex.debug_UnhideAllResearch = true;
         
-        _cleanup.AddRange([table, powerCell, platform, parts, ..mechs, worker]);
+        _cleanup.AddRange([table, parts, ..mechs, worker]);
         
         var mech = mechs.First();
         HealthCardUtility.CreateSurgeryBill(mech, WTH_DefOf.WTH_HackMechanoid,
@@ -70,16 +88,95 @@ public class MechsQuickstart
                 WTH_DefOf.WTH_HackMechanoid.appliedOnFixedBodyParts.Contains(x.def)));
 
         if(TestRunner.Active)
-            yield return null;
+            yield break;
 
-        worker.jobs.debugLog = true;
         yield return new WaitUntilTimeout(() => table.AnyOccupants);
         yield return new WaitTicks(10);
         var job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, mech, table);
         worker.jobs.TryTakeOrderedJob(job);
-        yield return worker.WaitJob(WTH_DefOf.WTH_ClearHackingTable, GenDate.TicksPerDay);
-        yield return worker.WaitJob(JobDefOf.Rescue, waitJobType: WaitJobType.StartsJob);
-        Find.TickManager.Pause();
+
+        
+        // Fight
+        yield return new WaitUntil(() => !mech.health.Downed && mech.health.summaryHealth.SummaryHealthPercent >= 1 && !mech.ShouldRecharge());
+
+        IncidentParms parms = new IncidentParms
+        {
+            target = Find.CurrentMap,
+            points = 100,
+            forced = true,
+            raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
+        };
+        var raidWorker = (IncidentWorker_Raid)IncidentDefOf.RaidEnemy.Worker ;
+        raidWorker.TryGenerateRaidInfo(parms, out var raiders);
+
+        if (Find.TickManager.Paused)
+            Tweaker.SuperFast = true;
+        yield return new WaitTicks(1);
+        var command = (Command_Toggle)Pawn_GetGizmos.CreateGizmo_SearchAndDestroy(mech, mech.GetExtendedData());
+        command.toggleAction();
+
+        builder.WithHack().WithLocation(mech.Position).SpawnMany(10);
+
+        yield return new WaitUntil(() => raiders.All(x => x.Dead || x.Downed || !x.Spawned));
+        builder.Destroy();
+        
+        // Haul
+        if (ModsConfig.BiotechActive)
+        {
+            var lifters = PawnKindDef
+                .Named("Mech_Lifter")
+                .AsBuilder()
+                .WithFaction(Faction.OfMechanoids)
+                .WithHackBill()
+                .SpawnMany(3);
+            _cleanup.AddRange([..lifters]);
+
+            yield return new WaitUntil(() => lifters.All(lifter =>
+                !lifter.health.Downed && lifter.health.summaryHealth.SummaryHealthPercent >= 1 &&
+                !lifter.ShouldRecharge()));
+
+        }
+        else
+        {
+            var lifter = PawnKindDefOf.Mech_Scyther
+                .AsBuilder()
+                .WithHackBill()
+                .Spawn();
+            GenSpawn.Spawn(WTH_DefOf.WTH_HaulingModule, map.Center + new IntVec3(1, 0, 0), map);
+            var recipe = WTH_DefOf.WTH_InstallHaulingModule;
+            _cleanup.Add(lifter);
+            yield return new WaitUntil(() =>
+                !lifter.health.Downed && lifter.health.summaryHealth.SummaryHealthPercent >= 1 &&
+                !lifter.ShouldRecharge());
+            HealthCardUtility.CreateSurgeryBill(lifter, recipe, lifter.RaceProps.body.AllParts.First(x =>
+                recipe.appliedOnFixedBodyParts.Contains(x.def)));
+        }
+        
+        var stockpileCells = GenRadial
+            .RadialCellsAround(workshopCenter + new IntVec3(0, 0, 10), 5f, true)
+            .ToArray();
+        var itemCells = GenRadial
+            .RadialCellsAround(workshopCenter + new IntVec3(0, 0, -10), 2f, true)
+            .ToArray();
+            
+        Utils.CreateStockpile(map, stockpileCells);
+            
+        foreach (var spot in itemCells)
+        {
+            var haulable = ThingMaker.MakeThing(ThingDefOf.WoodLog);
+            haulable.stackCount = haulable.def.stackLimit;
+            GenSpawn.Spawn(haulable, spot, map);
+        }
+
+        yield return new WaitTicks(GenDate.TicksPerHour * 3);
+        
+        Tweaker.SuperFast = false;
+        
+        
+        
+        // End
+        Current.Game.tickManager.CurTimeSpeed = TimeSpeed.Fast;
+        Messages.Message(new Message("That's all, folks", MessageTypeDefOf.NeutralEvent));
     }
     
     [TearDown]
@@ -110,5 +207,7 @@ public class MechsQuickstart
 
         return matcher.Instructions();
     }
+    
+
 
 }

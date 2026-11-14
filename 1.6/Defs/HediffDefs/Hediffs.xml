@@ -63,14 +63,16 @@
 					  <capacity>Moving</capacity>
 					  <offset>0.3</offset>
 					</li>
-				</capMods>  
+				</capMods>
+				<statOffsets>
+					<WTH_PowerRate>0.25</WTH_PowerRate>
+				</statOffsets>
 			</li>
 		</stages>		
 		<modExtensions>
 			<li Class="WhatTheHack.DefModExtension_Hediff">
 				<extraButcherProduct>WTH_SpeedModule</extraButcherProduct>
 				<canUninstall>true</canUninstall>
-				<powerRateOffset>0.25</powerRateOffset>
 				<spawnChance>0.12</spawnChance>
 				<destroyOnDeathChance>0.8</destroyOnDeathChance>
 			</li>
@@ -117,13 +119,15 @@
 					  <offset>0.2</offset>
 					</li>
 				</capMods>  
+				<statOffsets>
+					<WTH_PowerRate>0.1</WTH_PowerRate>
+				</statOffsets>
 			</li>
 		</stages>		
 		<modExtensions>
 			<li Class="WhatTheHack.DefModExtension_Hediff">
 				<extraButcherProduct>WTH_OpticSensorModule</extraButcherProduct>
 				<canUninstall>true</canUninstall>
-				<powerRateOffset>0.1</powerRateOffset>
 				<spawnChance>0.12</spawnChance>
 				<destroyOnDeathChance>0.8</destroyOnDeathChance>
 			</li>
@@ -282,14 +286,16 @@
 					  <capacity>Moving</capacity>
 					  <offset>-0.05</offset>
 					</li>
-				</capMods>  
+				</capMods>
+				<statOffsets>
+					<WTH_BatteryCapacity>50</WTH_BatteryCapacity>
+				</statOffsets>
 			</li>
 		</stages>
 		<modExtensions>
 			<li Class="WhatTheHack.DefModExtension_Hediff">
 				<extraButcherProduct>WTH_BatteryExpansionModule</extraButcherProduct>
 				<canUninstall>true</canUninstall>
-				<batteryCapacityOffset>0.5</batteryCapacityOffset>
 				<spawnChance>0.12</spawnChance>
 				<destroyOnDeathChance>0.75</destroyOnDeathChance>
 			</li>
@@ -310,6 +316,9 @@
 					  <offset>-0.1</offset>
 					</li>
 				</capMods>  
+				<statOffsets>
+					<WTH_PowerProduction>1000</WTH_PowerProduction>
+				</statOffsets>
 			</li>
 		</stages>
 		<modExtensions>
@@ -317,7 +326,6 @@
 				<extraButcherProduct>WTH_VanometricModule</extraButcherProduct>
 				<canUninstall>true</canUninstall>
 				<spawnChance>0.01</spawnChance>
-				<powerProduction>1000</powerProduction> 
 			</li>
 		</modExtensions>
 	</HediffDef>
@@ -382,13 +390,15 @@
 					  <capacity>Consciousness</capacity>
 					  <offset>0.3</offset>
 					</li>
-				</capMods>  
+				</capMods>
+				<statOffsets>
+					<WTH_PowerRate>50</WTH_PowerRate>
+				</statOffsets>
 			</li>
 		</stages>
 		<modExtensions>
 			<li Class="WhatTheHack.DefModExtension_Hediff">
 				<firingRateOffset>-0.3</firingRateOffset>
-				<powerRateOffset>0.5</powerRateOffset>
 			</li>
 		</modExtensions>
 	</HediffDef>  
@@ -419,13 +429,15 @@
 					  <capacity>Consciousness</capacity>
 					  <offset>-0.2</offset>
 					</li>
-				</capMods>  
+				</capMods>
+				<statOffsets>
+					<WTH_PowerRate>1500</WTH_PowerRate>
+				</statOffsets>
 			</li>
 		</stages>
 		<modExtensions>
 			<li Class="WhatTheHack.DefModExtension_Hediff">
 				<firingRateOffset>-1</firingRateOffset>
-				<powerRateOffset>15</powerRateOffset>
 			</li>
 		</modExtensions>
 	</HediffDef>  
@@ -602,15 +614,6 @@
 		<description>targeting hacked</description>
 		<defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
 		<chemicalNeed>WTH_Mechanoid_Maintenance</chemicalNeed>
-		<isBad>false</isBad>
-	  </HediffDef>
-	  
-	  <HediffDef>
-		<defName>WTH_BackupBattery</defName>
-		<label>running on backup battery</label>
-		<description>running on backup battery</description>
-		<defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
-		<chemicalNeed>WTH_Mechanoid_Power</chemicalNeed>
 		<isBad>false</isBad>
 	  </HediffDef>
 	  

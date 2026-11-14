@@ -4,6 +4,7 @@ namespace WhatTheHack.ThinkTree;
 
 public class LordJob_SearchAndDestroy : LordJob
 {
+    // TODO Improve this so they go in low processing mode when there's no threats on map 
     public override StateGraph CreateGraph()
     {
         var graph = new StateGraph();
