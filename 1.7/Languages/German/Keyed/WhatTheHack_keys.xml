@@ -65,13 +65,13 @@
   <WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>Nachdem der Hacker mit dem Notsignal-Mechanismus herumgespielt hat, ertönt ein ohrenbetäubender Lärm aus dem Mechanoiden. Da der Hacker zu inkompetent war um dieses Ergebnis vorauszusehen, wurde das Signal etwas stärker als erwartet. Die Kolonie sollte sich auf das schlimmste vorbereiten.</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
   <WTH_Expand>Mehr</WTH_Expand>
   <WTH_Collapse>Weniger</WTH_Collapse>
-  <WTH_SettingsGroup_Raids_Title>Überfall Einstellungen</WTH_SettingsGroup_Raids_Title>
+  <WTH_SettingsGroup_Raids_Title>Überfall</WTH_SettingsGroup_Raids_Title>
   <WTH_SettingsGroup_Raids_Description>Stelle die Chancen für die Benutzung von Mechanoiden in gegnerischen Überfällen ein.</WTH_SettingsGroup_Raids_Description>
-  <WTH_SettingsGroup_HackFailure_Title>Fehlgeschlagene Hacks (enthält Spoiler)</WTH_SettingsGroup_HackFailure_Title>
+  <WTH_SettingsGroup_HackFailure_Title>Fehlgeschlagene Hacks</WTH_SettingsGroup_HackFailure_Title>
   <WTH_SettingsGroup_HackFailure_Description>Stelle die Chancen für das Auftreten der Ereignisse ein, wenn ein Hack fehlschlägt. Diese Chancen werden normalisiert, wenn sie sich nicht zu 100 aufaddieren lassen.</WTH_SettingsGroup_HackFailure_Description>
   <WTH_FailureChance_IntRaidTooLarge_Title>Fehlschlag Chance: Großen Überfall verursachen</WTH_FailureChance_IntRaidTooLarge_Title>
   <WTH_FailureChance_IntRaidTooLarge_Description>Die Chance, dass das Notsignal zu stark ist, wenn ein Kolonist versucht Mechanoide anzulocken. Bemerkung: Dieses Ereignis kann bei normalem Hacken nicht vorkommen.</WTH_FailureChance_IntRaidTooLarge_Description>
-  <WTH_SettingsGroup_Balance_Title>Balance Einstellungen</WTH_SettingsGroup_Balance_Title>
+  <WTH_SettingsGroup_Balance_Title>Balance</WTH_SettingsGroup_Balance_Title>
   <WTH_SettingsGroup_Balance_Description>Diese Einstellungen haben einen großen Einfluss darauf, wie ausgeglichen diese Mod ist. Die Einstellungen können nach belieben verändert werden, jedoch ist es empfehlenswert die Standard-Einstellungen zuerst auszuprobieren. Sollten die Standard-Einstellungen nicht sinnvoll erscheinen, kann dies im Workshop oder im Forum dieser Mod diskutiert werden.</WTH_SettingsGroup_Balance_Description>
   <WTH_MaintenanceDedayModifier_Title>Wartungs-Verfall</WTH_MaintenanceDedayModifier_Title>
   <WTH_MaintenanceDedayModifier_Description>Ändere die Wartungs-Verfallrate mit dieser Einstellung. Beispiel: Diesen Wert auf 0.5 setzen, führt dazu, dass die Wartung halb so schnell verfällt.</WTH_MaintenanceDedayModifier_Description>

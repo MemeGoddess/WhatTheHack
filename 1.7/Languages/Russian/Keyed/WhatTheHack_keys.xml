@@ -64,13 +64,13 @@
 	<WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>В процессе работы с механоидом раздался громкий щелчок. Сигнал бедствия был многократно усилен. Приготовьтесь к худшему. Это произошло в связи с низкой квалификацией взломщика.</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
 	<WTH_Expand>Развернуть</WTH_Expand>
 	<WTH_Collapse>Свернуть</WTH_Collapse>
-	<WTH_SettingsGroup_Raids_Title>Настройки налета</WTH_SettingsGroup_Raids_Title>
+	<WTH_SettingsGroup_Raids_Title>Налета</WTH_SettingsGroup_Raids_Title>
 	<WTH_SettingsGroup_Raids_Description>Настройка вероятности налета при взломе</WTH_SettingsGroup_Raids_Description>
-	<WTH_SettingsGroup_HackFailure_Title>Настройка вероянтностней(СПОЙЛЕРЫ!)</WTH_SettingsGroup_HackFailure_Title>
+	<WTH_SettingsGroup_HackFailure_Title>Вероянтностней</WTH_SettingsGroup_HackFailure_Title>
 	<WTH_SettingsGroup_HackFailure_Description>Настройка вероятностей различных событий в случае неудачного взлома. Шансы нормализуются, в случае если их сумма не равна 100.</WTH_SettingsGroup_HackFailure_Description>
 	<WTH_FailureChance_IntRaidTooLarge_Title>Ошибка: вызов большого подкрепления</WTH_FailureChance_IntRaidTooLarge_Title>
 	<WTH_FailureChance_IntRaidTooLarge_Description>Вероятность прихода усиленного налета. Пояснение: это событие не будет возникать при регулярном техническом обслуживании механоида.</WTH_FailureChance_IntRaidTooLarge_Description>
-	<WTH_SettingsGroup_Balance_Title>Настройка баланса мода</WTH_SettingsGroup_Balance_Title>
+	<WTH_SettingsGroup_Balance_Title>Баланса мода</WTH_SettingsGroup_Balance_Title>
 	<WTH_SettingsGroup_Balance_Description>Данные настройки оказывают большое влияние на баланс мода. Вы можете настроить их по своему усмотрению, но рекомендую сыграть хотя бы одну игру с настройками по-умолчанию. Если у Вас имеются предложения по балансу, свяжитесь со мной через Steam или форум игры.</WTH_SettingsGroup_Balance_Description>	
 	<WTH_MaintenanceDedayModifier_Title>Падение (шкала техобслуживания)</WTH_MaintenanceDedayModifier_Title>
 	<WTH_MaintenanceDedayModifier_Description>Изменение значения приведет к изменению скорости уменьшения шкалы технического обслуживания. Например, значение 0.5 уменьшит скорость падения в 2 раза.</WTH_MaintenanceDedayModifier_Description>

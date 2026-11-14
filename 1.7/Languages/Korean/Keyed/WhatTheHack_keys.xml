@@ -65,13 +65,13 @@
   <WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>당신의 해커가 신호를 송출할 수 있는 기계 장치를 해킹하는 도중, \n 갑작스럽게 메카노이드에서 귀청이 터질듯한 비상 신호가 터져나와 정착지를 뒤흔들었습니다. \n 해커는 이러한 결과를 예측할 수 없었기 때문에, 송출된 비상 신호는 기존 예상보다 훨씬 강력했습니다. \n 이제... 우리는 최악의 사태에 대비하고, 만일의 경우를 생각해둬야 할 것 같습니다...</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
   <WTH_Expand>열기</WTH_Expand>
   <WTH_Collapse>접기</WTH_Collapse>
-  <WTH_SettingsGroup_Raids_Title>습격 설정</WTH_SettingsGroup_Raids_Title>
+  <WTH_SettingsGroup_Raids_Title>습격</WTH_SettingsGroup_Raids_Title>
   <WTH_SettingsGroup_Raids_Description>적의 습격에 메카노이드가 사용될 확률을 설정합니다.</WTH_SettingsGroup_Raids_Description>
-  <WTH_SettingsGroup_HackFailure_Title>해킹 실패 설정\n (!이벤트 발생정보 포함)</WTH_SettingsGroup_HackFailure_Title>
+  <WTH_SettingsGroup_HackFailure_Title>해킹 실패</WTH_SettingsGroup_HackFailure_Title>
   <WTH_SettingsGroup_HackFailure_Description>해킹 실패 시 발생할 수 있는 여러 가지 이벤트의 확률을 설정합니다. \n 각 설정들의 확률을 합산해서 그 값이 100%를 넘지 않으면, 확률은 정상화 됩니다.</WTH_SettingsGroup_HackFailure_Description>
   <WTH_FailureChance_IntRaidTooLarge_Title>실패 확률 : 대규모 습격 발생</WTH_FailureChance_IntRaidTooLarge_Title>
   <WTH_FailureChance_IntRaidTooLarge_Description>폰이 의도적으로 비상 신호를 송출하려고 할 때 너무 강한 비상 신호가 방출될 확률. \n (!참고 : 이 이벤트는 일반적인 해킹 시 발생할 수 없습니다.)</WTH_FailureChance_IntRaidTooLarge_Description>
-  <WTH_SettingsGroup_Balance_Title>중요 수치 설정</WTH_SettingsGroup_Balance_Title>
+  <WTH_SettingsGroup_Balance_Title>중요 수치</WTH_SettingsGroup_Balance_Title>
   <WTH_SettingsGroup_Balance_Description>이러한 설정은 모드의 밸런스에 큰 영향을 미칩니다. 필요에 맞게 수정할 수 있지만, 먼저 기본 설정으로 모드를 사용해 보는 것이 좋습니다. \n 기본값이 합리적이지 않다고 생각될 경우 그러한 내용을 이 모드의 창작마당(워크샵) 또는 포럼 페이지에 보고해 주십시오.</WTH_SettingsGroup_Balance_Description>
   <WTH_MaintenanceDedayModifier_Title>정비 수치 감소 속도 설정</WTH_MaintenanceDedayModifier_Title>
   <WTH_MaintenanceDedayModifier_Description>이 설정을 조정하면, 정비 수치의 감소 속도를 수정 할 수 있습니다. \n 예시 : 이 값을 0.5로 설정하면 기본값(1)과 비교해 정비 수치의 감소 속도가 50%만큼 느려집니다.</WTH_MaintenanceDedayModifier_Description>

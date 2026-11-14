@@ -1,3 +1,6 @@
 [submodule "DevTools"]
 	path = DevTools
 	url = https://github.com/MemeGoddess/DevTools.git
+[submodule "Source/RimWorld-SharedCode"]
+	path = Source/RimWorld-SharedCode
+	url = https://github.com/MemeGoddess/RimWorld-SharedCode.git

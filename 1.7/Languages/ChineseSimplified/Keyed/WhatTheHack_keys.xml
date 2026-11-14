@@ -69,13 +69,13 @@
   <WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>黑客在理解了信号发送的机制后，成功的让机械体发出求救信号，不过由于控制不得当，发出的信号比预想要强烈得多，请做好最坏的打算。</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
   <WTH_Expand>展开</WTH_Expand>
   <WTH_Collapse>收起</WTH_Collapse>
-  <WTH_SettingsGroup_Raids_Title>袭击设置</WTH_SettingsGroup_Raids_Title>
+  <WTH_SettingsGroup_Raids_Title>袭击</WTH_SettingsGroup_Raids_Title>
   <WTH_SettingsGroup_Raids_Description>设置敌袭使用的机械族百分比。</WTH_SettingsGroup_Raids_Description>
-  <WTH_SettingsGroup_HackFailure_Title>骇入失败率设置(破坏平衡)</WTH_SettingsGroup_HackFailure_Title>
+  <WTH_SettingsGroup_HackFailure_Title>骇入失败率</WTH_SettingsGroup_HackFailure_Title>
   <WTH_SettingsGroup_HackFailure_Description>设置骇入失败时可能发生的不同事件的几率。正常几率不增加到100。</WTH_SettingsGroup_HackFailure_Description>
   <WTH_FailureChance_IntRaidTooLarge_Title>失败几率：引起大规模袭击</WTH_FailureChance_IntRaidTooLarge_Title>
   <WTH_FailureChance_IntRaidTooLarge_Description>当一个小人试图故意触发紧急信号时，发出过强紧急信号的可能性。注意：在常规骇入期间不会发生此事件。</WTH_FailureChance_IntRaidTooLarge_Description>
-  <WTH_SettingsGroup_Balance_Title>其它平衡性设置</WTH_SettingsGroup_Balance_Title>
+  <WTH_SettingsGroup_Balance_Title>其它平衡性</WTH_SettingsGroup_Balance_Title>
   <WTH_SettingsGroup_Balance_Description>这些设置对mod的平衡性有很大影响。您可以调整它们以满足需求，但建议首先尝试使用Mod的默认设置来获得预期的体验。如果您认为默认值不合理，请在此mod的创意工坊或论坛页面上报告。</WTH_SettingsGroup_Balance_Description>
   <WTH_MaintenanceDedayModifier_Title>维护衰减调整</WTH_MaintenanceDedayModifier_Title>
   <WTH_MaintenanceDedayModifier_Description>使用此选项修改维护衰减率。示例：将此值设置为0.5将使维护衰减率降低至一半。</WTH_MaintenanceDedayModifier_Description>

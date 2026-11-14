@@ -64,13 +64,13 @@
 	<WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>Después de que tu hacker jugó con el mecanismo capaz de emitir señales, un fuerte sonido ensordecedor emergió del mecanoide. Debido a la incompetencia de tu hacker de predecir este resultado, la señal de emergencia transmitida fue más fuerte de lo anticipado. Prepárate para lo peor.</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
 	<WTH_Expand>Expandir</WTH_Expand>
 	<WTH_Collapse>Colapsar</WTH_Collapse>
-	<WTH_SettingsGroup_Raids_Title>Configuración de raideo</WTH_SettingsGroup_Raids_Title>
+	<WTH_SettingsGroup_Raids_Title>Raideo</WTH_SettingsGroup_Raids_Title>
 	<WTH_SettingsGroup_Raids_Description>Configurar la chance de uso de mecanoides para raideos enemigos.</WTH_SettingsGroup_Raids_Description>
-	<WTH_SettingsGroup_HackFailure_Title>Configuración de hackeos fallados (contiene spoilers)</WTH_SettingsGroup_HackFailure_Title>
+	<WTH_SettingsGroup_HackFailure_Title>Hackeos fallados</WTH_SettingsGroup_HackFailure_Title>
 	<WTH_SettingsGroup_HackFailure_Description>Configurar las chances de los diferentes eventos que ocurren al fallar un hack. Las chances son normalizadas en caso de que no sumen hasta 100.</WTH_SettingsGroup_HackFailure_Description>
 	<WTH_FailureChance_IntRaidTooLarge_Title>Chance al fallar: causar un gran raideo</WTH_FailureChance_IntRaidTooLarge_Title>
 	<WTH_FailureChance_IntRaidTooLarge_Description>La chance de que una señal de emergencia superior sea emitida cuando un colonizador trate deliberadamente provoque una señal de emergencia. Nota: este evento no puede ocurrir durante hackeos regulares.</WTH_FailureChance_IntRaidTooLarge_Description>
-	<WTH_SettingsGroup_Balance_Title>Configuración de balance</WTH_SettingsGroup_Balance_Title>
+	<WTH_SettingsGroup_Balance_Title>Balance</WTH_SettingsGroup_Balance_Title>
 	<WTH_SettingsGroup_Balance_Description>Estas configuraciones tienen un gran impacto en cómo está balanceado este mod. Puedes modificarlos a tu gusto, pero es recomendable que primero pruebes el mod con la configuración predeterminada para la experiencia esperada. Si crees que no es razonable, por favor repórtalo en el workshop o la página del foro de este mod.</WTH_SettingsGroup_Balance_Description>
 	<WTH_MaintenanceDedayModifier_Title>Modificador del deterioro de mantenimiento</WTH_MaintenanceDedayModifier_Title>
 	<WTH_MaintenanceDedayModifier_Description>Modifica la velocidad del deterioro de mantenimiento con esta opción. Ejemplo: configurndo esto en 0.5 resultaría en el mantenimiento deteriorándose el doble de lento.</WTH_MaintenanceDedayModifier_Description>

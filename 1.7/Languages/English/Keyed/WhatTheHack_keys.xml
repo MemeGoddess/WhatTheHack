@@ -69,13 +69,13 @@
 	<WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>After your hacker fiddled around with the mechanism capable of emitting signals a deafening loud shriek emerged from the mechanoid. Due to the incompetence of your hacker to predict this outcome, the transmitted emergency signal was much more strong than anticipated. Prepare for the worst.</WTH_Letter_CausedIntendedMechanoidRaidTooLarge_Description>
 	<WTH_Expand>Expand</WTH_Expand>
 	<WTH_Collapse>Collapse</WTH_Collapse>
-	<WTH_SettingsGroup_Raids_Title>Raid settings</WTH_SettingsGroup_Raids_Title>
+	<WTH_SettingsGroup_Raids_Title>Raid</WTH_SettingsGroup_Raids_Title>
 	<WTH_SettingsGroup_Raids_Description>Configure the mechanoid usage chance for enemy raids.</WTH_SettingsGroup_Raids_Description>
-	<WTH_SettingsGroup_HackFailure_Title>Hacking failure settings (contains spoilers)</WTH_SettingsGroup_HackFailure_Title>
+	<WTH_SettingsGroup_HackFailure_Title>Hacking Failure</WTH_SettingsGroup_HackFailure_Title>
 	<WTH_SettingsGroup_HackFailure_Description>Configure the chances of different events that can occur when hacking fails. The chances are normalised in case they don't add up to 100.</WTH_SettingsGroup_HackFailure_Description>
 	<WTH_FailureChance_IntRaidTooLarge_Title>Failure chance: cause big raid</WTH_FailureChance_IntRaidTooLarge_Title>
 	<WTH_FailureChance_IntRaidTooLarge_Description>The chance that a much too strong emergency signal is emitted when a pawn tries to deliberately trigger an emergency signal. Note: this event can not occur during regular hacking.</WTH_FailureChance_IntRaidTooLarge_Description>
-	<WTH_SettingsGroup_Balance_Title>Balance altering settings</WTH_SettingsGroup_Balance_Title>
+	<WTH_SettingsGroup_Balance_Title>Balance Altering</WTH_SettingsGroup_Balance_Title>
 	<WTH_SettingsGroup_Balance_Description>These settings have a high impact on how balanced the mod is. You can tweak them to suit your needs, but it's recommended to first try the mod on default settings for the intended experience. If you think the defaults aren't reasonable, please report this on the workshop or forum page of this mod.</WTH_SettingsGroup_Balance_Description>	
 	<WTH_MaintenanceDedayModifier_Title>Maintenance decay modifier</WTH_MaintenanceDedayModifier_Title>
 	<WTH_MaintenanceDedayModifier_Description>Modify the maintenance decay rate with this option. Example: setting this to 0.5 would result in maintenance decaying twice as slow.</WTH_MaintenanceDedayModifier_Description>

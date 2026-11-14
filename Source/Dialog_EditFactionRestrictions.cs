@@ -17,6 +17,8 @@ namespace WhatTheHack
         private const float RowHeight = 22f;
         private const float RowMultiHeight = 44f;
         private const float ColumnGap = 10f;
+        private const float BottomRectHeight = 44f;
+        private const float scrollBarWidth = 20f;
 
         private readonly Dict2DRecordHandler handler;
         private readonly List<ThingDef> allMechs;
@@ -34,6 +36,8 @@ namespace WhatTheHack
         // Clipboard support
         private static Dictionary<string, Record> clipboardData;
         private static string clipboardSourceFaction;
+        
+        private Dictionary<string, bool> MultilineCache = new();
 
 
         public Dialog_EditFactionRestrictions(
@@ -84,22 +88,17 @@ namespace WhatTheHack
             }
         }
 
-        public override void DoWindowContents(Rect inRect)
+        public override void DoWindowContents(Rect content)
         {
-            var content = inRect.ContractedBy(8f);
-            var headerRect = new Rect(content.x, content.y, content.width, TopHeaderHeight);
-            Widgets.Label(headerRect, "WTH_FactionRestrictions_Title".Translate());
-            float y = headerRect.yMax + 8f;
-
-            float tabsHeight = content.height - TopHeaderHeight - 60f;
-            var tabsRect = new Rect(content.x, y, TabWidth, tabsHeight);
-            var rightRect = new Rect(content.x + TabWidth + ColumnGap, y, content.width - TabWidth - ColumnGap, tabsHeight);
+            var tabsHeight = content.height - BottomRectHeight - 12f;
+            var tabsRect = new Rect(content.x, 0, TabWidth, tabsHeight);
+            var rightRect = new Rect(content.x + TabWidth + ColumnGap, 0, content.width - TabWidth - ColumnGap, tabsHeight);
 
             DrawTabs(tabsRect);
             DrawSelectionArea(rightRect);
 
             // Bottom buttons
-            var bottomRect = new Rect(content.x, content.yMax - 44f, content.width, 44f);
+            var bottomRect = new Rect(content.x, content.yMax - BottomRectHeight, content.width, BottomRectHeight);
             DrawBottomButtons(bottomRect);
         }
 
@@ -148,7 +147,7 @@ namespace WhatTheHack
             var inner = rightRect.ContractedBy(6f);
 
             // left/right columns within selection area
-            float columnWidth = (inner.width - ColumnGap) / 2f;
+            float columnWidth = (inner.width - scrollBarWidth) / 2f - ColumnGap ;
             var leftColRect = new Rect(inner.x, inner.y, columnWidth, inner.height);
             var rightColRect = new Rect(inner.x + columnWidth + ColumnGap, inner.y, columnWidth, inner.height);
 
@@ -159,8 +158,8 @@ namespace WhatTheHack
             var leftList = ordered.Where(kv => kv.Value.isSelected).ToList();
             var rightList = ordered.Where(kv => !kv.Value.isSelected).ToList();
 
-            float leftHeight = leftList.Sum(kv => (kv.Value.label?.Length > 16 ? RowMultiHeight : RowHeight) + 4f);
-            float rightHeight = rightList.Sum(kv => (kv.Value.label?.Length > 16 ? RowMultiHeight : RowHeight) + 4f);
+            float leftHeight = leftList.Sum(kv => (MultilineCache.GetValueOrDefault(kv.Value.label, false) ? RowMultiHeight : RowHeight) + 4f);
+            float rightHeight = rightList.Sum(kv => (MultilineCache.GetValueOrDefault(kv.Value.label, false) ? RowMultiHeight : RowHeight) + 4f);
             float viewHeight = Math.Max(leftHeight, rightHeight) + 8f;
 
             // column headers
@@ -182,7 +181,12 @@ namespace WhatTheHack
             for (int i = 0; i < leftList.Count; i++)
             {
                 var kv = leftList[i];
-                float h = kv.Value.label.Length > 16 ? RowMultiHeight : RowHeight;
+                if (!MultilineCache.TryGetValue(kv.Value.label, out var isMulti))
+                {
+                    isMulti = Text.CalcSize(kv.Value.label).x > columnWidth;
+                    MultilineCache[kv.Value.label] = isMulti;
+                }
+                var h = isMulti ? RowMultiHeight : RowHeight;
                 var rowRect = new Rect(xLeft, yLeft, columnWidth, h);
                 DrawItemRow(rowRect, kv.Key, kv.Value);
                 yLeft += h + 4f;
@@ -192,7 +196,12 @@ namespace WhatTheHack
             for (int i = 0; i < rightList.Count; i++)
             {
                 var kv = rightList[i];
-                float h = kv.Value.label.Length > 16 ? RowMultiHeight : RowHeight;
+                if (!MultilineCache.TryGetValue(kv.Value.label, out var isMulti))
+                {
+                    isMulti = Text.CalcSize(kv.Value.label).x > columnWidth;
+                    MultilineCache[kv.Value.label] = isMulti;
+                }
+                var h = isMulti ? RowMultiHeight : RowHeight;
                 var rowRect = new Rect(xRight, yRight, columnWidth, h);
                 DrawItemRow(rowRect, kv.Key, kv.Value);
                 yRight += h + 4f;
@@ -206,38 +215,36 @@ namespace WhatTheHack
         {
             // background
             var save = GUI.color;
-            if (Mouse.IsOver(new Rect(rowRect.x + windowRect.x, rowRect.y + windowRect.y, rowRect.width, rowRect.height)))
-                GUI.color = new Color(0.6f, 0.6f, 0.4f, 1f);
-            else if (rec.isSelected)
-                GUI.color = new Color(0f, 0.5f, 0f, 0.08f);
+            if (Mouse.IsOver(rowRect))
+                Widgets.DrawHighlightSelected(rowRect);
             else
-                GUI.color = new Color(0.5f, 0f, 0f, 0.06f);
-
-            GUI.DrawTexture(new Rect(rowRect.x + 2f, rowRect.y + 2f, rowRect.width - 4f, rowRect.height - 4f), TexUI.FastFillTex);
-            GUI.color = save;
-
+            {
+                GUI.color = rec.isSelected ? new Color(0f, 0.5f, 0f, 0.08f) : new Color(0.5f, 0f, 0f, 0.06f);
+                GUI.DrawTexture(new Rect(rowRect.x, rowRect.y, rowRect.width, rowRect.height), TexUI.FastFillTex);
+                GUI.color = save;
+            }
+            
             // label
-            var labelRect = new Rect(rowRect.x + 6f, rowRect.y + 4f, rowRect.width - 12f - 80f, 20f);
+            var labelRect = new Rect(rowRect.x + 6f, rowRect.y + 2f, rowRect.width - 12f - 80f, rowRect.height - 2f);
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(labelRect, !rec.label.NullOrEmpty() ? rec.label : key);
             Text.Anchor = TextAnchor.UpperLeft;
 
             // exception checkbox
-            var cbRect = new Rect(rowRect.x + rowRect.width - 20f - 6f, rowRect.y + (rowRect.height - 18f) / 2f, 18f, 18f);
-            Widgets.Checkbox(cbRect.x, cbRect.y, ref rec.isException);
+            Widgets.Checkbox(rowRect.x + rowRect.width - rowRect.height, rowRect.y, ref rec.isException, size: rowRect.height);
 
             // clickable whole tile toggles selection and flips exception (mimic original)
-            var worldRect = new Rect(rowRect.x + windowRect.x + 2f, rowRect.y + windowRect.y + 2f, rowRect.width - 4f, rowRect.height - 4f);
+            var worldRect = new Rect(rowRect.x + windowRect.x, rowRect.y + windowRect.y, rowRect.width - 40f, rowRect.height);
             if (Widgets.ButtonInvisible(worldRect))
             {
                 rec.isSelected = !rec.isSelected;
-                rec.isException = !rec.isException;
+                rec.isException = !rec.isSelected; // Align to isSelected
                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             }
 
             // small selected-toggle button for convenience
-            var toggleRect = new Rect(rowRect.x + rowRect.width - 6f - 80f, rowRect.y + (rowRect.height - 18f) / 2f, 80f, 18f);
-            if (Widgets.ButtonText(toggleRect, rec.isSelected ? "WTH_Selected".Translate() : "WTH_NotSelected".Translate()))
+            var toggleRect = new Rect(rowRect.x + rowRect.width - 6f - 40f, rowRect.y + (rowRect.height - 20f) / 2f, 20f, 20f);
+            if (Widgets.ButtonText(toggleRect, rec.isSelected ? ">" : "<"))
             {
                 rec.isSelected = !rec.isSelected;
                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
@@ -246,7 +253,6 @@ namespace WhatTheHack
 
         private void DrawBottomButtons(Rect area)
         {
-            Widgets.DrawMenuSection(area);
             var inner = area.ContractedBy(6f);
 
             float btnW = 120f;
