@@ -143,8 +143,12 @@ namespace WhatTheHack
 
         private void DrawSelectionArea(Rect rightRect)
         {
-            Widgets.DrawMenuSection(rightRect);
             var inner = rightRect.ContractedBy(6f);
+
+            // var save = GUI.color;
+            // GUI.color = new Color(0.6f, 0.6f, 0.6f);
+            // Widgets.DrawLineVertical(rightRect.x - 6f, rightRect.y, rightRect.y + rightRect.height);
+            // GUI.color = save;
 
             // left/right columns within selection area
             float columnWidth = (inner.width - scrollBarWidth) / 2f - ColumnGap ;
