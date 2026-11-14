@@ -6,6 +6,13 @@ on:
       - "main"
       - "master"
       - "feat/merge-power-needs"
+  workflow_dispatch:
+    inputs:
+      release_chore:
+        description: 'Release even if chore'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   deploy:
