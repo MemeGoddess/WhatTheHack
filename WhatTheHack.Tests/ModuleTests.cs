@@ -16,7 +16,7 @@ public class ModuleTests
     public static bool PatchCheckHackingFail() => false;
     private ScopedMethodHook NoFail, NoWarning;
     private Pawn mech = null!;
-    private TestPawnBuilder builder;
+    private TestPawnBuilder builder = null!;
     private List<Thing> _cleanup = [];
     private float animalDensity = 0f;
     private float autosaveDays = 0.5f;

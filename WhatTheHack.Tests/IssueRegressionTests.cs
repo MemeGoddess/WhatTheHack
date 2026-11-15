@@ -135,33 +135,6 @@ public class IssueRegressionTests
     }
 
     [Test]
-    public void HackJobCanReservePartsAcrossMultipleStacks()
-    {
-        var map = Find.CurrentMap;
-        var center = map.Center + new IntVec3(10, 0, 0);
-        var worker = TestPawns.Worker.Spawn();
-        var mech = PawnKindDefOf.Mech_Scyther.AsBuilder()
-            .WithFaction(Faction.OfPlayer)
-            .WithLocation(center + new IntVec3(0, 0, 2))
-            .Spawn();
-        var table = (Building_HackingTable)GenSpawn.Spawn(
-            WTH_DefOf.WTH_HackingTable,
-            center + new IntVec3(2, 0, 0),
-            map);
-        var firstParts = GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidParts, center + new IntVec3(0, 0, 1), map);
-        var secondParts = GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidParts, center + new IntVec3(1, 0, 1), map);
-        firstParts.stackCount = 5;
-        secondParts.stackCount = 5;
-        cleanup.AddRange([worker, mech, table, firstParts, secondParts]);
-
-        var findPartsStack = AccessTools.Method(typeof(JobDriver_HackMechanoid), "FindPartsStack")!;
-        var partsStack = findPartsStack.Invoke(new JobDriver_HackMechanoid(), [worker, 10]);
-
-        Expect.IsNotNull(partsStack,
-            "Ten parts split across reachable stacks should satisfy the ten-part requirement.");
-    }
-
-    [Test]
     public void HiveTempleRectangleCandidatesAreLocalToEachGeneration()
     {
         var possibleRectsField = AccessTools.Field(typeof(GenStep_HiveTemple), "possibleRects");

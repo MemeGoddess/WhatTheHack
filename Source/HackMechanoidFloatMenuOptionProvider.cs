@@ -58,7 +58,7 @@ namespace WhatTheHack
             {
                 yield return new FloatMenuOption("WTH_Menu_HackMechanoid".Translate(), () =>
                 {
-                    Job job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, clickedPawn, table);
+                    Job job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, clickedPawn, null, table);
                     actingPawn.jobs.TryTakeOrderedJob(job);
                 }, MenuOptionPriority.Default);
             }
@@ -82,7 +82,7 @@ namespace WhatTheHack
             {
                 yield return new FloatMenuOption(bill.recipe.LabelCap, () =>
                 {
-                    Job job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, clickedPawn, table);
+                    Job job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, clickedPawn, null, table);
                     job.bill = bill;
                     actingPawn.jobs.TryTakeOrderedJob(job);
                 }, MenuOptionPriority.Default);

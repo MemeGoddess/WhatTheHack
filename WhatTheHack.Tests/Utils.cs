@@ -32,6 +32,6 @@ public static class Utils
             return stockpile;
         
         stockpile.Delete(playSound: false);
-        return null;
+        return null!;
     }
 }

@@ -12,7 +12,6 @@ namespace WhatTheHack.Buildings;
 public class Building_HackingTable : Building_Bed
 {
     public const int SLOTINDEX = 2;
-    private Func<string> getInspectStringFunc = null;
     public CompPowerTrader powerComp;
 
     public override void SpawnSetup(Map map, bool respawningAfterLoad)

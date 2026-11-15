@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace WhatTheHack
     public class JobDriver_HackMechanoid : JobDriver
     {
         private Pawn Mech => job.targetA.Thing as Pawn;
-        private Building_HackingTable HackingTable => job.targetB.Thing as Building_HackingTable;
+        private Building_HackingTable HackingTable => job.targetC.Thing as Building_HackingTable;
         private Bill Bill => job.bill;
 
         private const int RequiredPartCount = 10;
@@ -28,37 +29,46 @@ namespace WhatTheHack
                 return false;
 
             // Find a stack with enough parts
-            var partsStack = FindPartsStack(pawn, RequiredPartCount);
-            if (partsStack == null)
+            var partList = new List<ThingCount>();
+            WorkGiver_DoBill.TryFindBestFixedIngredients(job.RecipeDef.ingredients, GetActor(), TargetThingC, partList);
+            if (!partList.Any() || partList.Sum(x => x.Count) < RequiredPartCount)
             {
                 if (errorOnFailed)
                     Messages.Message($"Not enough {MechPartDef.label} to hack mechanoid (need {RequiredPartCount}).", MessageTypeDefOf.RejectInput);
                 return false;
             }
 
-            if (!pawn.Reserve(partsStack, job, 1, RequiredPartCount, null, errorOnFailed))
-                return false;
-
-            job.SetTarget(TargetIndex.C, partsStack);
+            var partsLeft = RequiredPartCount;
+            foreach (var part in partList)
+            {
+                job.AddQueuedTarget(TargetIndex.B, part.Thing);
+                
+                var countAdd = Math.Min(part.Count, partsLeft);
+                partsLeft -= countAdd;
+                job.countQueue ??= [];
+                job.countQueue.Add(countAdd);
+            }
+            
             job.count = RequiredPartCount;
+            pawn.ReserveAsManyAsPossible(job.GetTargetQueue(TargetIndex.B), job);
             return true;
         }
 
         public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDestroyedOrNull(TargetIndex.A);
-            this.FailOnDestroyedOrNull(TargetIndex.B);
+            this.FailOnDestroyedOrNull(TargetIndex.C);
             this.FailOn(() => Bill == null);
 
             // 1) Go pick up parts
-            yield return Toils_Goto.GotoThing(TargetIndex.C, PathEndMode.ClosestTouch)
-                .FailOnDestroyedNullOrForbidden(TargetIndex.C)
-                .FailOnSomeonePhysicallyInteracting(TargetIndex.C);
+            foreach (var item in JobDriver_DoBill.CollectIngredientsToils(TargetIndex.B, TargetIndex.C, TargetIndex.C,
+                         subtractNumTakenFromJobCount: false, failIfStackCountLessThanJobCount: true))
+                yield return item;
 
             yield return Toils_Haul.StartCarryThing(TargetIndex.C);
 
             // 2) Go to hacking table slot
-            yield return Toils_Goto.GotoCell(HackingTable.InteractionCell, PathEndMode.OnCell);
+            yield return Toils_Goto.GotoCell(HackingTable.Position, PathEndMode.OnCell);
 
             // 3) Drop parts at the table slot
             var dropAtTable = new Toil
@@ -143,20 +153,6 @@ namespace WhatTheHack
             yield return finish;
         }
 
-        private Thing FindPartsStack(Pawn actor, int minCount)
-        {
-            var req = ThingRequest.ForDef(MechPartDef);
-            return GenClosest.ClosestThingReachable(
-                actor.Position,
-                actor.Map,
-                req,
-                PathEndMode.ClosestTouch,
-                TraverseParms.For(actor, Danger.Deadly, TraverseMode.ByPawn, false),
-                maxDistance: 9999f,
-                validator: t => t.stackCount >= minCount && !t.IsForbidden(actor) && actor.CanReserve(t)
-            );
-        }
-
         public new void EndJobWith(JobCondition condition)
         {
             base.EndJobWith(condition);
@@ -177,6 +173,27 @@ namespace WhatTheHack
             {
                 Log.Warning($"[WhatTheHack] Cleanup failed: {e}");
             }
+        }
+
+        public override void ExposeData()
+        {
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (!TargetB.HasThing || TargetB.Thing is not Building_HackingTable)
+                    return;
+                if (!TargetC.HasThing || TargetC.Thing.def != MechPartDef)
+                    return;
+            
+                Log.Warning($"[What The Hack] Running Job migration for Job_{job.loadID}");
+                var bench = TargetB.Thing as Building_HackingTable;
+                var stack = TargetC.Thing;
+
+                job.targetB = null;
+                job.targetC = null;
+                job.AddQueuedTarget(TargetIndex.B, stack);
+                job.SetTarget(TargetIndex.C, bench);
+            }
+            base.ExposeData();
         }
     }
 }

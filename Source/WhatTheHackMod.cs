@@ -13,7 +13,6 @@ namespace WhatTheHack
     public class WhatTheHackMod : Mod
     {
         public static WhatTheHackSettings Settings;
-        private Vector2 scrollPosition;
         private WhatTheHackSettingsTabs tabs;
         public WhatTheHackMod(ModContentPack content) : base(content)
         {

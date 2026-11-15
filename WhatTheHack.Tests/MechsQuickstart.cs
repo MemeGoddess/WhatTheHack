@@ -71,7 +71,9 @@ public class MechsQuickstart
         table.powerComp.PowerOn = true;
         
         var parts = GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidParts, workshopCenter + new IntVec3(0, 0, -3), map);
-        parts.stackCount = parts.def.stackLimit;
+        var parts2 = GenSpawn.Spawn(WTH_DefOf.WTH_MechanoidParts, workshopCenter + new IntVec3(0, 0, -4), map);
+        parts.stackCount = 5;
+        parts2.stackCount = 5;
 
         worker = TestPawns.Worker
             .WithGear(ThingDefOf.MealSurvivalPack)
@@ -92,9 +94,8 @@ public class MechsQuickstart
 
         yield return new WaitUntilTimeout(() => table.AnyOccupants);
         yield return new WaitTicks(10);
-        var job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, mech, table);
+        var job = JobMaker.MakeJob(WTH_DefOf.WTH_HackMechanoidJob, mech, null, table);
         worker.jobs.TryTakeOrderedJob(job);
-
         
         // Fight
         yield return new WaitUntil(() => !mech.health.Downed && mech.health.summaryHealth.SummaryHealthPercent >= 1 && !mech.ShouldRecharge());
