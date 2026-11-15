@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>What the Hack?! (Continued)</name>
+	<name>What the Hack - Continued</name>
 	<author>Meme Goddess</author>
 	<supportedVersions>
 		<li>1.5</li>
@@ -149,4 +149,7 @@ which was part of the amazing More Mechanoids, but is no longer used in that mod
 		<li>Aoba.DeadManSwitch.Core</li>
 	</loadAfter>
 	<packageId>memegoddess.whatthehack</packageId>
+	<incompatibleWith>
+		<li>zal.whatthehack</li>
+	</incompatibleWith>
 </ModMetaData>

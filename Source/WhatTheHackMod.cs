@@ -3,10 +3,12 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
 using HarmonyLib;
+using static WhatTheHack.CompatibilityLoader;
 
 namespace WhatTheHack
 {
@@ -17,6 +19,13 @@ namespace WhatTheHack
         public WhatTheHackMod(ModContentPack content) : base(content)
         {
             Settings = GetSettings<WhatTheHackSettings>();
+            var harmony = new HarmonyLib.Harmony("memegoddess.whatthehack");
+            var assembly = Assembly.GetExecutingAssembly();
+            
+            harmony.PatchAllUncategorized(assembly);
+            
+            if(ExpandedInstalled)
+                harmony.PatchCategory(assembly, Expanded);
         }
 
         public override string SettingsCategory() => "WTH_ModName".Translate();

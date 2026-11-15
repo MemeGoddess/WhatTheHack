@@ -173,8 +173,6 @@ public class MechsQuickstart
         
         Tweaker.SuperFast = false;
         
-        
-        
         // End
         Current.Game.tickManager.CurTimeSpeed = TimeSpeed.Fast;
         Messages.Message(new Message("That's all, folks", MessageTypeDefOf.NeutralEvent));
