@@ -9,6 +9,4 @@ public static class CompatibilityLoader
     public static bool ExpandedInstalled = ModLister.AnyModActiveNoSuffix([Expanded]);
 
     public const string AdditionalModules = "memegoddess.wthexpansion";
-    public static bool AdditionalModulesInstalled = ModLister.AnyModActiveNoSuffix([AdditionalModules]);
-    
 }
