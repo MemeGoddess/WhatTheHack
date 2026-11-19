@@ -24,7 +24,7 @@ public static class WTH_Startup
         };
 
         // replicate content from addon mod that used to use DefsLoaded
-        if (Verse.ModLister.HasActiveModWithName("WTH Expanded (Continued)"))
+        if (CompatibilityLoader.ExpandedInstalled)
         {
             WTH_DefOf.WTHExCore_Rescue.visible = true;
             WTH_DefOf.WTHExCore_Husbandry.visible = true;
